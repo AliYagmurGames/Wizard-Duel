@@ -70,11 +70,11 @@ public class PlayerController : MonoBehaviour
             }
             else if (Input.GetMouseButton(1))
             {
-                //
+                //track the 4 sides of wand placement, apply buff if necessary, when released fire a projectile.
             }
             else if (Input.GetMouseButton(0))
             {
-                
+                //track the 4 sides of wand placement, apply buff if necessary, when released if a projectile is approaching to you and is close enough deflect it according to the velocity of the wand tip.
             }
         }
         else
@@ -127,5 +127,11 @@ public class PlayerController : MonoBehaviour
     void handRotationController()
     {
         rotationAnchor.AddForce(this.transform.forward * 3000 * Time.deltaTime, ForceMode.Acceleration);
+    }
+
+    //This method tracks the hand movement in order to decide wheter it appylies certain patterns
+    void trackElementalPower()
+    {
+
     }
 }
