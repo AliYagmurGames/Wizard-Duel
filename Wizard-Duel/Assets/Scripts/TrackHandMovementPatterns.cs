@@ -10,56 +10,95 @@ public class TrackHandMovementPatterns : MonoBehaviour
     [SerializeField] Collider rightCollider;
     [SerializeField] Collider upCollider;
     [SerializeField] Collider downCollider;
-    bool tracker1 = false;
-    bool tracker2 = false;
-    bool tracker3 = false;
-    bool tracker4 = false;
-    bool tracker5 = false;
-    private void OnCollisionEnter(Collision collision)
+
+    [SerializeField] WandController wandControl;
+
+    bool centerTracker = false;
+    bool leftTracker = false;
+    bool rightTracker = false;
+    bool upTracker = false;
+    bool downTracker = false;
+
+    int buffType = 0;
+
+    private void Awake()
     {
-        if(collision.collider == centerCollider)
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other == centerCollider)
         {
+            centerTracker = true;
+        }
+        else if(other == leftCollider)
+        {
+            leftTracker = true;
+            upTracker = false;
+            downTracker = false;
+            centerTracker = false;
             
-        }
-        else if(collision.collider == leftCollider)
-        {
-            tracker2 = true;
-            tracker4 = false;
-            tracker5 = false;
-            if(tracker3 == true)
+            if (rightTracker == true)
             {
-                //add right buff
+                buffType = 2;
+                wandControl.applyBuff(buffType);
+                resetHandTracking();
             }
         }
-        else if (collision.collider == rightCollider)
+        else if (other == rightCollider)
         {
-            tracker3 = true;
-            tracker4 = false;
-            tracker5 = false;
-            if (tracker2 == true)
+            rightTracker = true;
+            upTracker = false;
+            downTracker = false;
+            centerTracker = false;
+            if (leftTracker == true)
             {
-                //add left buff
+                buffType = 1;
+                wandControl.applyBuff(buffType);
+                resetHandTracking();
             }
         }
-        else if (collision.collider == upCollider)
+        else if (other == upCollider)
         {
-            tracker4 = true;
-            tracker2 = false;
-            tracker3 = false;
-            if (tracker5 == true)
+            upTracker = true;
+            leftTracker = false;
+            rightTracker = false;
+            centerTracker = false;
+            if (downTracker == true)
             {
-                //add down buff
+                buffType = 4;
+                wandControl.applyBuff(buffType);
+                resetHandTracking();
             }
         }
-        else if (collision.collider == downCollider)
+        else if (other == downCollider)
         {
-            tracker5 = true;
-            tracker2 = false;
-            tracker3 = false;
-            if (tracker4 == true)
+            downTracker = true;
+            leftTracker = false;
+            rightTracker = false;
+            centerTracker = false;
+            if (upTracker == true)
             {
-                //add up buff
+                buffType = 3;
+                wandControl.applyBuff(buffType);
+                resetHandTracking();
             }
+        }
+    }
+
+    public void resetHandTracking()
+    {
+        downTracker = false;
+        leftTracker = false;
+        rightTracker = false;
+        upTracker = false;
+        centerTracker = false;
+        buffType = 0;
+
+        //to be deleted later
+        if(centerTracker == true)
+        {
+            Debug.Log("delete this part");
         }
     }
 }

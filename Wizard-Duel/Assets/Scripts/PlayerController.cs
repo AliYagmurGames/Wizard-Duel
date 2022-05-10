@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         movementControls();
-        wandController();
+        wandMovementControl();
         handRotationController();
         handRotation();
 
@@ -59,32 +59,17 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
     }
 
-    void wandController()
+    void wandMovementControl()
     {
         if(Input.GetMouseButton(1) || Input.GetMouseButton(0))
         {
             wandMovement();
-            if (Input.GetMouseButton(1) && Input.GetMouseButton(0))
-            {
-                //use shield. Shield shrinks by taking damage, can be restored
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                //track the 4 sides of wand placement, apply buff if necessary, when released fire a projectile.
-            }
-            else if (Input.GetMouseButton(0))
-            {
-                //track the 4 sides of wand placement, apply buff if necessary, when released if a projectile is approaching to you and is close enough deflect it according to the velocity of the wand tip.
-            }
         }
         else
         {
             var step = handResetSpeed * Time.deltaTime;
             handPosition.transform.position = Vector3.MoveTowards(handPosition.transform.position, centerHandPos.position, step);
         }
-
-        //hand rotation
-        
     }
 
     void handRotation()
