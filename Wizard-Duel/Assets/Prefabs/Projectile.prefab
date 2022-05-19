@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3868095933179321057
 Transform:
   m_ObjectHideFlags: 0
@@ -263,6 +263,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6fdb858981bf94dbc7d19cb3b513a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _electric: {fileID: 4168850671350351425}
+  _fire: {fileID: 1182833746184116602}
+  _ice: {fileID: 4886425752081465458}
+  _earth: {fileID: 574479165185775083}
 --- !u!1001 &1552994806707596189
 PrefabInstance:
   m_ObjectHideFlags: 0

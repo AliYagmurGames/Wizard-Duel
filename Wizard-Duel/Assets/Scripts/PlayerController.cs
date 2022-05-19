@@ -14,14 +14,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody rotationAnchor;
     [SerializeField] Transform centerHandPos;
 
+    float horizontalMovement;
+    float verticalMovement;
+    float mouseX;
+    float mouseY;
+
     Transform startingHandTransform;
-    // Start is called before the first frame update
+
     void Awake()
     {
         startingHandTransform = handPosition.transform;
+        GameObject[] wizards = GameObject.FindGameObjectsWithTag("Wizard");
+        foreach (GameObject w in wizards)
+        {
+            if (w != this.gameObject)
+            {
+                target = w;
+            }
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         movementControls();
@@ -36,12 +48,18 @@ public class PlayerController : MonoBehaviour
         rotateTowardsTarget();
     }
 
+    public void getInput(float hM, float vM, float mX, float mY)
+    {
+        horizontalMovement = Input.GetAxis("Horizontal");
+        verticalMovement = Input.GetAxis("Vertical");
+
+        mouseX = Input.GetAxis("Mouse X");
+        mouseY = Input.GetAxis("Mouse Y");
+    }
+
     void movementControls()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(horizontal, 0f, vertical);
+        Vector3 movement = new Vector3(horizontalMovement, 0f, verticalMovement);
         if (movement.magnitude > 0)
         {
             movement.Normalize();
@@ -87,8 +105,6 @@ public class PlayerController : MonoBehaviour
 
     void wandMovement()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
         Vector3 mouseMovement = new Vector3(mouseX, mouseY, 0f);
         Vector3 handMovement = this.transform.right * mouseX;
         handMovement.y = Vector3.Dot(mouseMovement, this.transform.up);
@@ -114,9 +130,4 @@ public class PlayerController : MonoBehaviour
         rotationAnchor.AddForce(this.transform.forward * 3000 * Time.deltaTime, ForceMode.Acceleration);
     }
 
-    //This method tracks the hand movement in order to decide wheter it appylies certain patterns
-    void trackElementalPower()
-    {
-
-    }
 }

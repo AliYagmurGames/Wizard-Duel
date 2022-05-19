@@ -68,7 +68,8 @@ public class WandController : MonoBehaviour
         {
             //when released fire a projectile.
             GameObject a = Instantiate(projectilePrefab, wandTipTransform.position, Quaternion.identity);
-            a.GetComponent<ProjectileScript>().startProjectile(target, wandAnchor.velocity);
+            a.GetComponent<ProjectileScript>().startProjectile(target, wandAnchor.velocity, 1);
+            target.GetComponent<WandController>().approachingProjectiles.Add(a);
             handTracker.resetHandTracking();
         }
         else if (Input.GetMouseButtonUp(1) && !Input.GetMouseButton(0))
@@ -108,10 +109,6 @@ public class WandController : MonoBehaviour
         {
             //down buff
         }
-    }
-    void addProjectile(GameObject _projectile)
-    {
-        approachingProjectiles.Add(_projectile);
     }
 
     GameObject findClosestProjectile()
